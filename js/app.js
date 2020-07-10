@@ -94,27 +94,16 @@ function displayModal(index) {
   /*  Left and Right Arrows  */
   /***************************/
 
-  //Gets the Current Index Of Employees
-  let currentEmployee = employees.indexOf(employees[index]);
+  //Grabs the Current Index of Employee Array
+  currentEmployee = employees.indexOf(employees[index]);
 
-  function left() {
-    displayModal((currentEmployee -= 1));
-    console.log(currentEmployee);
-    if (currentEmployee === 0) {
-      leftArrow.style.display = "none";
-    }
-  }
-  function right() {
-    displayModal((currentEmployee += 1));
-    console.log(currentEmployee);
-    if (currentEmployee === 11) {
-      rightArrow.style.display = "none";
-    }
-  }
-
-  leftArrow.addEventListener("click", left);
-
-  rightArrow.addEventListener("click", right);
+  //Conditional Ternary Operator
+  currentEmployee === 11
+    ? (rightArrow.style.display = "none")
+    : (rightArrow.style.display = "block");
+  currentEmployee === 0
+    ? (leftArrow.style.display = "none")
+    : (leftArrow.style.display = "block");
 }
 
 /***************************/
@@ -135,6 +124,7 @@ modalOverlay.onclick = (e) => {
   }
 };
 
+// Prevents from Children causing 'On Click'
 modal.addEventListener("click", (e) => {
   e.stopPropagation();
 });
@@ -153,8 +143,9 @@ containerApi.addEventListener("click", (e) => {
 search.addEventListener("keyup", () => {
   const memberName = document.getElementsByClassName("member-header");
   const searchInput = search.value.toUpperCase();
-  const memberArray = Array.from(memberName);
-
+  const memberArray = Array.from(memberName); //Converts HTML Collection to Array
+  //Loop Through Each Array Item
+  //Check to See if there is a Match
   memberArray.forEach((member) => {
     if (member.innerHTML.toUpperCase().indexOf(searchInput) > -1) {
       member.closest(".member-container").style.display = "";
@@ -163,3 +154,33 @@ search.addEventListener("keyup", () => {
     }
   });
 });
+
+//Function for Left Arrow
+//Checks if Current Employee is greater or Equal to Zero
+// Then Checks if Current Employee is Zero to remove arrow
+function left() {
+  if (currentEmployee >= 0) {
+    displayModal((currentEmployee -= 1));
+    rightArrow.style.display = "block";
+    if (currentEmployee === 0) {
+      leftArrow.style.display = "none";
+    }
+  }
+}
+
+//Function for Right Arrow
+//Checks if Current Employee is greater or Equal to Eleven
+// Then Checks if Current Employee is Eleven to remove arrow
+function right() {
+  if (currentEmployee <= 11) {
+    displayModal((currentEmployee += 1));
+    leftArrow.style.display = "block";
+    if (currentEmployee === 11) {
+      rightArrow.style.display = "none";
+    }
+  }
+}
+
+leftArrow.addEventListener("click", left);
+
+rightArrow.addEventListener("click", right);
