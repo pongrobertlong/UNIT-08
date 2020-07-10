@@ -76,7 +76,7 @@ function displayModal(index) {
   const modalHTML = `
   <div class="modal-header">
   <img class="modal-image" src="${picture.large}" />
-  <h3 class="modal-name">${name.first} ${name.last}t</h3>
+  <h3 class="modal-name">${name.first} ${name.last}</h3>
   <p class="modal-email">${email}</p>
   <p class="modal-city">${city}</p>
   <hr>
